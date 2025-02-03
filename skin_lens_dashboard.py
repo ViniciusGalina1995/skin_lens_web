@@ -1,6 +1,7 @@
 import streamlit as st
 import requests
-
+spell = st.secrets['spell']
+key = st.secrets.some_magic_api.key
 #API_URL = "http://localhost:8000/predict"
 API_URL = "https://skinlens-1019856209529.europe-west1.run.app/predict"
 st.title("Skin Disease Prediction Dashboard")
