@@ -151,7 +151,7 @@ def show_home_page():
 
     with col2:
         try:
-            img = Image.open("skin_image.jpg")
+            img = Image.open("images/skin_image.jpg")
             st.image(img, use_container_width=True)
         except FileNotFoundError:
             st.warning("Homepage image not found. Using placeholder.")
@@ -179,15 +179,24 @@ def show_analysis_page():
 
                 with col2:
                     st.markdown(f"""
-                        <div class="analysis-result" style="background: rgba(255, 255, 255, 0.6); padding: 20px; border-radius: 10px;">
-                            <p class="condition" style="font-size: 1.5em; font-weight: bold; color: #4CAF50;">Condition: {prediction['prediction']['class']}</p>
-                            <p class="confidence" style="font-size: 1.2em; color: #333333;">Confidence: {prediction['prediction']['probability']:.1f}%</p>
-                            <div class="detailed-probabilities">
-                                <h4 style="color: #4CAF50; font-size: 1.2em;">Detailed Probabilities:</h4>
-                                {format_probabilities(prediction["all_class_probabilities"])}
-                            </div>
+                    <div class="analysis-result" style="background: rgba(255, 255, 255, 0.6); padding: 20px; border-radius: 10px;">
+                        <p class="condition" style="font-size: 1.5em; font-weight: bold; color: #4CAF50;">
+                            🩺Condition: {prediction['prediction']['class']}
+                        </p>
+                        <p class="confidence" style="font-size: 1.2em; color: #333333;">
+                            📊Confidence: {prediction['prediction']['probability']:.1f}%
+                        </p>
+                    </div>
+                """, unsafe_allow_html=True)
+
+                    # Expander for detailed probabilities
+                    with st.expander("🔎 **Show Detailed Probabilities**"):
+                        st.markdown(f"""
+                        <div style="background: rgba(0, 255, 0, 0.1); padding: 20px; border-radius: 10px; border: 2px solid #4CAF50;">
+                            {format_probabilities(prediction["all_class_probabilities"])}
                         </div>
-                    """, unsafe_allow_html=True)
+                        """, unsafe_allow_html=True)
+
 
             except requests.exceptions.RequestException as e:
                 st.error(f"API Connection Error: {str(e)}")
@@ -202,42 +211,48 @@ def format_probabilities(probabilities):
     return "\n".join([f"<p>- {k}: {v:.1f}%</p>" for k, v in probabilities.items()])
 
 def show_technology_page():
-    #st.title("Our Technology")
     st.markdown("<h1 style='text-align: center;'>Our Technology</h1>", unsafe_allow_html=True)
+
     st.markdown("""
         <div style="background-color: #f0f4f8; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
             <h2 style="color: #4CAF50; font-size: 2.5rem; font-weight: bold;">Revolutionizing with AI</h2>
-            <p style="font-size: 1.2rem; color: #333;">Our AI system combines cutting-edge deep learning with clinical expertise to offer real-time, highly accurate skin condition analysis. We empower dermatologists and patients with clinical-grade precision.</p>
+            <p style="font-size: 1.2rem; color: #333;">Our system combines cutting-edge deep learning with clinical expertise to offer real-time, highly accurate skin condition analysis. We empower dermatologists and patients with clinical-grade precision.</p>
         </div>
     """, unsafe_allow_html=True)
 
-    st.markdown("""
-        ### How It Works
+    st.markdown("### How It Works")
+    st.write("""
         Our AI solution utilizes state-of-the-art deep neural networks trained on over 200,000 dermatoscopic images. The system is continuously updated with new data to stay at the forefront of skin health research.
 
         - **Deep Neural Networks**: Powerful models that learn to identify skin conditions with exceptional accuracy.
         - **Clinical Validation**: Developed in partnership with certified dermatologists to ensure real-world accuracy.
         - **Continuous Learning**: Our model improves over time, as it is retrained with new and diverse data.
+    """)
 
-        ### Key Features
+    st.markdown("### Key Features")
+    st.write("""
         - **AI-Driven Analysis**: Accurate, fast predictions based on a vast dataset.
         - **Real-Time Results**: Get immediate, actionable insights for better decision-making.
         - **Security & Privacy**: Your data is encrypted and processed in compliance with the highest medical standards.
+    """)
 
-    """, unsafe_allow_html=True)
+    st.markdown("### Our Technical Architecture")
+    st.write("AI Model: EfficientNet-B5, trained on the ISIC 2020 dataset for robust skin lesion classification.")
 
-    st.markdown("""
-        <div style="background-color: #ffffff; padding: 2rem; margin-top: 30px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-            <h3 style="color: #333; font-size: 2rem; font-weight: bold; text-align: center;">Our Technical Architecture</h3>
-            <p style="font-size: 1.2rem; color: #555; text-align: center;">AI Model: EfficientNet-B5, trained on the ISIC 2020 dataset for robust skin lesion classification.</p>
-        </div>
-    """, unsafe_allow_html=True)
+    st.markdown("## Model Performance on Test Set")
 
-    # st.markdown("""
-    #     <div style="margin-top: 30px; text-align: center;">
-    #         <img src="https://via.placeholder.com/600x400" alt="AI Architecture Diagram" style="max-width: 80%; border-radius: 10px;">
-    #     </div>
-    # """, unsafe_allow_html=True)
+    col1, col2 = st.columns(2)
+
+    with col1:
+        st.markdown("### Confusion Matrix")
+        st.image("images/confusion_matrix.png", caption="Confusion Matrix", use_container_width=True)
+
+    with col2:
+        st.markdown("### Classification Report")
+        st.image("images/classification_metrics.png", caption="Classification Report", use_container_width=True)
+
+    st.markdown("### Learning Curve")
+    st.image("images/learning_curves.png", caption="Learning Curve", use_container_width=True)
 
     st.markdown("""
         <div style="background-color: #e8f5e9; padding: 2rem; border-radius: 10px; margin-top: 40px;">
@@ -245,12 +260,12 @@ def show_technology_page():
             <p style="font-size: 1.2rem; color: #333; text-align: center;">We prioritize your privacy with HIPAA-compliant data handling, end-to-end encryption, and automatic image deletion. Your security is our top concern.</p>
         </div>
     """, unsafe_allow_html=True)
-
     # st.markdown("""
     #     <div style="margin-top: 30px; text-align: center;">
     #         <a href="#privacy-policy" style="padding: 10px 20px; background-color: #388e3c; color: white; border-radius: 5px; text-decoration: none; font-size: 1.2rem;">Read Our Privacy Policy →</a>
     #     </div>
     # """, unsafe_allow_html=True)
+
 
 if __name__ == "__main__":
     main()
