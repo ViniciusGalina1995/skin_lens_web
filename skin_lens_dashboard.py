@@ -252,7 +252,6 @@ def show_technology_page():
     #     </div>
     # """, unsafe_allow_html=True)
 
-
 if __name__ == "__main__":
     main()
     st.markdown("---")
