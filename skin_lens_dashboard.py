@@ -222,22 +222,25 @@ def show_technology_page():
 
     st.markdown("### How It Works")
     st.write("""
-        Our AI solution utilizes state-of-the-art deep neural networks trained on over 200,000 dermatoscopic images. The system is continuously updated with new data to stay at the forefront of skin health research.
+    Our AI solution follows a robust workflow to ensure high accuracy in skin condition detection:
 
-        - **Deep Neural Networks**: Powerful models that learn to identify skin conditions with exceptional accuracy.
-        - **Clinical Validation**: Developed in partnership with certified dermatologists to ensure real-world accuracy.
-        - **Continuous Learning**: Our model improves over time, as it is retrained with new and diverse data.
+    - **Image Preprocessing**: Raw images are enhanced and adjusted to optimize performance with our state-of-the-art CNN model.
+    - **Model Training**: The preprocessed dataset is used to train the model, allowing it to identify unique patterns associated with different skin diseases.
+    - **Clinical Validation**: The model is rigorously tested on a clinical dataset, previously approved by certified dermatologists.
+    - **Personalized Evaluation**: Our AI is now prepared to assess your individual inquiries with high confidence.
     """)
+
 
     st.markdown("### Key Features")
     st.write("""
         - **AI-Driven Analysis**: Accurate, fast predictions based on a vast dataset.
         - **Real-Time Results**: Get immediate, actionable insights for better decision-making.
-        - **Security & Privacy**: Your data is encrypted and processed in compliance with the highest medical standards.
+        - **Security & Privacy**: Your data is not saved or shared with any third parties.
     """)
 
     st.markdown("### Our Technical Architecture")
-    st.write("AI Model: EfficientNet-B5, trained on the ISIC 2020 dataset for robust skin lesion classification.")
+    st.write("AI Model: ConvNeXtLarge(CNN architecture), trained on a ISIC Archive dataset for skin disease classification.")
+    st.markdown("[Link to the dataset](https://www.kaggle.com/datasets/pritpal2873/multiple-skin-disease-detection-and-classification/data)")
 
     st.markdown("## Model Performance on Test Set")
 
